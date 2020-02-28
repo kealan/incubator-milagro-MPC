@@ -24,7 +24,7 @@ under the License.
 #include <amcl/mpc.h>
 
 /* ECDSA Signature, R and S are the signature on M using private key SK */
-int MPC_ECDSA_SIGN(int sha, octet *K, octet *SK, octet *M, octet *R, octet *S)
+int MPC_ECDSA_SIGN(int sha, const octet *K, const octet *SK, octet *M, octet *R, octet *S)
 {
     char h[128];
     octet H = {0,sizeof(h),h};
@@ -101,7 +101,7 @@ int MPC_ECDSA_SIGN(int sha, octet *K, octet *SK, octet *M, octet *R, octet *S)
 
 
 /* IEEE1363 ECDSA Signature Verification. Signature R and S on M is verified using public key, PK */
-int MPC_ECDSA_VERIFY(octet *HM, octet *PK, octet *R,octet *S)
+int MPC_ECDSA_VERIFY(const octet *HM, octet *PK, octet *R,octet *S)
 {
     int res=0;
     BIG_256_56 q;
@@ -158,7 +158,7 @@ int MPC_ECDSA_VERIFY(octet *HM, octet *PK, octet *R,octet *S)
 }
 
 /* Calculate the inverse of kgamma */
-void MPC_INVKGAMMA(octet *KGAMMA1, octet *KGAMMA2, octet *INVKGAMMA)
+void MPC_INVKGAMMA(const octet *KGAMMA1, const octet *KGAMMA2, octet *INVKGAMMA)
 {
     BIG_256_56 kgamma1;
     BIG_256_56 kgamma2;
@@ -185,7 +185,7 @@ void MPC_INVKGAMMA(octet *KGAMMA1, octet *KGAMMA2, octet *INVKGAMMA)
 
 
 /* Calculate the r component of the signature */
-int MPC_R(octet *INVKGAMMA, octet *GAMMAPT1, octet *GAMMAPT2, octet *R, octet *RP)
+int MPC_R(const octet *INVKGAMMA, octet *GAMMAPT1, octet *GAMMAPT2, octet *R, octet *RP)
 {
     BIG_256_56 invkgamma;
     BIG_256_56 q;
@@ -243,7 +243,7 @@ void MPC_HASH(int sha, octet *M, octet *HM)
 }
 
 // Calculate the s component of the signature
-int MPC_S(octet *HM, octet *R, octet *K, octet *SIGMA, octet *S)
+int MPC_S(const octet *HM, const octet *R, const octet *K, const octet *SIGMA, octet *S)
 {
     BIG_256_56 q;
     BIG_256_56 k;
@@ -285,7 +285,7 @@ int MPC_S(octet *HM, octet *R, octet *K, octet *SIGMA, octet *S)
 }
 
 /* Calculate sum of s components of signature  */
-void MPC_SUM_S(octet *S1, octet *S2, octet *S)
+void MPC_SUM_S(const octet *S1, const octet *S2, octet *S)
 {
     BIG_256_56 s1;
     BIG_256_56 s2;
@@ -334,7 +334,7 @@ int MPC_SUM_PK(octet *PK1, octet *PK2, octet *PK)
     return MPC_OK;
 }
 
-int MPC_PHASE5_commit(csprng *RNG, octet *R, octet *S, octet *PHI, octet *RHO, octet *V, octet *A)
+int MPC_PHASE5_commit(csprng *RNG, octet *R, const octet *S, octet *PHI, octet *RHO, octet *V, octet *A)
 {
     BIG_256_56 ws;
     BIG_256_56 phi;
@@ -386,7 +386,7 @@ int MPC_PHASE5_commit(csprng *RNG, octet *R, octet *S, octet *PHI, octet *RHO, o
     return MPC_OK;
 }
 
-int MPC_PHASE5_prove(octet *PHI, octet *RHO, octet *V[2], octet *A[2], octet *PK, octet *HM, octet *RX, octet *U, octet *T)
+int MPC_PHASE5_prove(const octet *PHI, const octet *RHO, octet *V[2], octet *A[2], octet *PK, const octet *HM, const octet *RX, octet *U, octet *T)
 {
     BIG_256_56 m;
     BIG_256_56 r;
