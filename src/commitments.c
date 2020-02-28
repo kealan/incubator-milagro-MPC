@@ -22,7 +22,7 @@ under the License.
 /* NM Commitments Definitions */
 
 // Compute the hash of X || R
-void hash(octet *X, octet *R, octet *C)
+static void hash(const octet *X, const octet *R, octet *C)
 {
     int i;
     hash256 sha256;
