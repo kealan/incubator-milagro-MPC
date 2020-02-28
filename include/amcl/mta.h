@@ -105,7 +105,7 @@ void MPC_MTA_SERVER(csprng *RNG, PAILLIER_public_key *PUB, octet *B, octet *CA, 
  *  @param BETA               Additive share of A2.B1
  *  @param SUM                The sum of all values
  */
-void MPC_SUM_MTA(octet *A, octet *B, octet *ALPHA, octet *BETA, octet *SUM);
+void MPC_SUM_MTA(const octet *A, const octet *B, const octet *ALPHA, const octet *BETA, octet *SUM);
 
 /* MTA Zero Knowledge Proofs API*/
 

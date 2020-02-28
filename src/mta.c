@@ -28,7 +28,7 @@ static char* curve_order_hex = "fffffffffffffffffffffffffffffffebaaedce6af48a03b
 
 /* Octet manipulation utilities */
 
-void OCT_hash(hash256 *sha, octet *O)
+static void OCT_hash(hash256 *sha, const octet *O)
 {
     int i;
 
@@ -264,7 +264,7 @@ void MPC_MTA_SERVER(csprng *RNG, PAILLIER_public_key *PUB, octet *B, octet *CA, 
 }
 
 /* sum = a1.b1 + alpha + beta  */
-void MPC_SUM_MTA(octet *A, octet *B, octet *ALPHA, octet *BETA,  octet *SUM)
+void MPC_SUM_MTA(const octet *A, const octet *B, const octet *ALPHA, const octet *BETA,  octet *SUM)
 {
     BIG_256_56 a;
     BIG_256_56 b;
