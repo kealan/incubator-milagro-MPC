@@ -191,7 +191,7 @@ extern void MTA_RP_commit(csprng *RNG, PAILLIER_private_key *key, COMMITMENTS_BC
  *  @param c           Commitment of the prover
  *  @param E           Destination challenge
  */
-extern void MTA_RP_challenge(PAILLIER_public_key *key, COMMITMENTS_BC_pub_modulus *mod, octet *CT, MTA_RP_commitment *c, octet *E);
+extern void MTA_RP_challenge(PAILLIER_public_key *key, COMMITMENTS_BC_pub_modulus *mod, const octet *CT, MTA_RP_commitment *c, octet *E);
 
 /** \brief Proof generation
  *
@@ -353,7 +353,7 @@ extern void MTA_ZK_commit(csprng *RNG, PAILLIER_public_key *key, COMMITMENTS_BC_
  *  @param c           Commitment of the prover
  *  @param E           Destination challenge
  */
-extern void MTA_ZK_challenge(PAILLIER_public_key *key, COMMITMENTS_BC_pub_modulus *mod, octet *C1, octet *C2, MTA_ZK_commitment *c, octet *E);
+extern void MTA_ZK_challenge(PAILLIER_public_key *key, COMMITMENTS_BC_pub_modulus *mod, const octet *C1, const octet *C2, MTA_ZK_commitment *c, octet *E);
 
 /** \brief Proof generation for Receiver ZKP
  *
@@ -510,7 +510,7 @@ extern void MTA_ZKWC_commit(csprng *RNG, PAILLIER_public_key *key, COMMITMENTS_B
  *  @param c           Commitment of the prover
  *  @param E           Destination challenge
  */
-extern void MTA_ZKWC_challenge(PAILLIER_public_key *key, COMMITMENTS_BC_pub_modulus *mod, octet *C1, octet *C2, octet *X, MTA_ZKWC_commitment *c, octet *E);
+extern void MTA_ZKWC_challenge(PAILLIER_public_key *key, COMMITMENTS_BC_pub_modulus *mod, const octet *C1, const octet *C2, const octet *X, MTA_ZKWC_commitment *c, octet *E);
 
 /** \brief Proof generation for Receiver ZKP with check
  *
