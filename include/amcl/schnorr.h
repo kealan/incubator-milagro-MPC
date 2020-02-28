@@ -70,7 +70,7 @@ extern void SCHNORR_commit(csprng *RNG, octet *R, octet *C);
  * @param C     Public commitment value. Compressed form
  * @param E     Challenge generated
  */
-extern void SCHNORR_challenge(octet *V, octet *C, octet *E);
+extern void SCHNORR_challenge(const octet *V, const octet *C, octet *E);
 
 /*! \brief Generate the proof for the given commitment and challenge
  *
@@ -118,7 +118,7 @@ extern int SCHNORR_D_commit(csprng *RNG, octet *R, octet *A, octet *B, octet *C)
  * @param C     Public commitment value. Compressed form
  * @param E     Challenge generated
  */
-extern void SCHNORR_D_challenge(octet *R, octet *V, octet *C, octet *E);
+extern void SCHNORR_D_challenge(const octet *R, const octet *V, const octet *C, octet *E);
 
 /*! \brief Generate the proof for the given commitment and challenge
  *
