@@ -103,7 +103,6 @@ int MPC_ECDSA_SIGN(int sha, const octet *K, const octet *SK, octet *M, octet *R,
 /* IEEE1363 ECDSA Signature Verification. Signature R and S on M is verified using public key, PK */
 int MPC_ECDSA_VERIFY(const octet *HM, octet *PK, octet *R,octet *S)
 {
-    int res=0;
     BIG_256_56 q;
     BIG_256_56 z;
     BIG_256_56 c;
@@ -128,33 +127,34 @@ int MPC_ECDSA_VERIFY(const octet *HM, octet *PK, octet *R,octet *S)
 
     if (BIG_256_56_iszilch(c) || BIG_256_56_comp(c,q)>=0 || BIG_256_56_iszilch(d) || BIG_256_56_comp(d,q)>=0)
     {
-        res=ECDH_INVALID;
+        return ECDH_INVALID;
     }
 
-    if (res==0)
+    BIG_256_56_invmodp(d,d,q);
+    BIG_256_56_modmul(z,z,d,q);
+    BIG_256_56_modmul(h2,c,d,q);
+
+    valid=ECP_SECP256K1_fromOctet(&WP,PK);
+    if (!valid)
     {
-        BIG_256_56_invmodp(d,d,q);
-        BIG_256_56_modmul(z,z,d,q);
-        BIG_256_56_modmul(h2,c,d,q);
-
-        valid=ECP_SECP256K1_fromOctet(&WP,PK);
-
-        if (!valid) res=ECDH_ERROR;
-        else
-        {
-            ECP_SECP256K1_mul2(&WP,&G,h2,z);
-
-            if (ECP_SECP256K1_isinf(&WP)) res=ECDH_INVALID;
-            else
-            {
-                ECP_SECP256K1_get(d,d,&WP);
-                BIG_256_56_mod(d,q);
-                if (BIG_256_56_comp(d,c)!=0) res=ECDH_INVALID;
-            }
-        }
+        return ECDH_ERROR;
     }
 
-    return res;
+    ECP_SECP256K1_mul2(&WP,&G,h2,z);
+
+    if (ECP_SECP256K1_isinf(&WP))
+    {
+        return ECDH_INVALID;
+    }
+
+    ECP_SECP256K1_get(d,d,&WP);
+    BIG_256_56_mod(d,q);
+    if (BIG_256_56_comp(d,c)!=0)
+    {
+        return ECDH_INVALID;
+    }
+
+    return 0;
 }
 
 /* Calculate the inverse of kgamma */

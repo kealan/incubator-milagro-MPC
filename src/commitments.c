@@ -90,10 +90,10 @@ static int is_safe_prime(BIG_1024_58 *p, BIG_1024_58 *P, csprng *RNG, int n)
 {
 #ifndef C99
     BIG_1024_58 Pm1[FFLEN_2048];
-    BIG_1024_58 f[FFLEN_2048];    
+    BIG_1024_58 f[FFLEN_2048];
 #else
     BIG_1024_58 Pm1[n];
-    BIG_1024_58 f[n];    
+    BIG_1024_58 f[n];
 #endif
 
     // Sieve small primes from P, p is already checked in Miller-Rabin
