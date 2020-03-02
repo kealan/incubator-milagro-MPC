@@ -81,7 +81,6 @@ int MPC_ECDSA_SIGN(int sha, const octet *K, const octet *SK, octet *M, octet *R,
 
     // s = z + r.sk mod q
     BIG_256_56_add(s,z,s);
-    //BIG_256_56_mod(s,q);
 
     // s = k(z + r.sk) mod q
     BIG_256_56_modmul(s,k,s,q);
